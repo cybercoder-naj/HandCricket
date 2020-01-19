@@ -8,7 +8,7 @@ public class HandCricket {
     private int[] arr = new int[2];
 
     private String player, computer;
-    private int target=0, score=0, innings = 1;
+    private int target = 0, score = 0, innings = 1;
 
     private Scanner sc = new Scanner(System.in);
 
@@ -26,7 +26,7 @@ public class HandCricket {
         } catch (Exception e) {
             System.exit(1);
         }
-        while(true) {
+        while (true) {
             try {
                 obj.playBall();
             } catch (Exception e) {
@@ -50,7 +50,7 @@ public class HandCricket {
                 System.out.println("\nYou have won the toss!");
                 System.out.println("1) Batting\n2) Bowling\n");
                 System.out.print("Enter your choice: ");
-                switch(sc.nextInt()) {
+                switch (sc.nextInt()) {
                     case 1:
                         player = BATTING;
                         computer = BOWLING;
@@ -69,16 +69,15 @@ public class HandCricket {
 
             case 1:
                 System.out.println("\nThe computer_ has won the toss!");
-                for(int i=1;i<=3;i++) {
+                for (int i = 1; i <= 3; i++) {
                     System.out.print(".");
                     try {
                         Thread.sleep(1000);
-                    }
-                    catch (InterruptedException ex) {
+                    } catch (InterruptedException ex) {
                         Thread.currentThread().interrupt();
                     }
                 }
-                switch(new Random().nextInt(2)) {
+                switch (new Random().nextInt(2)) {
                     case 0:
                         System.out.println("\nThe computer_ chooses to bat. You are bowling!");
                         computer = BATTING;
@@ -97,59 +96,53 @@ public class HandCricket {
     private void playBall() throws Exception {
         System.out.print("\nEnter your play: ");
         int play = sc.nextInt();
-        int comp = new Random().nextInt(10)+1;
-        if(arr[0]==arr[1] && arr[0]!=0) comp = arr[0];
-        if(play<0 || play>10) {
+        int comp = new Random().nextInt(10) + 1;
+        if (arr[0] == arr[1] && arr[0] != 0) comp = arr[0];
+        if (play < 0 || play > 10) {
             System.out.println("Restart the game to read to rules again");
             System.exit(1);
         }
         System.out.println("\nYour play: " + play + "\nComputer's play: " + comp);
-        if(play == comp) {
+        if (play == comp) {
             if (player.equals(BATTING)) {
                 System.out.println("You are out!");
-                if(innings==1) {
+                if (innings == 1) {
                     player = BOWLING;
                     computer_ = BATTING;
-                    target = score+1;
+                    target = score + 1;
                     score = 0;
                     innings++;
                     System.out.println("You are bowling.\ntarget=" + target);
-                }
-                else this.exit();
-            }
-            else {
+                } else this.exit();
+            } else {
                 System.out.println("Computer is out!");
-                if(innings==1) {
+                if (innings == 1) {
                     player = BATTING;
                     computer_ = BOWLING;
-                    target=score+1;
-                    score=0;
+                    target = score + 1;
+                    score = 0;
                     innings++;
                     System.out.println("You are batting.\ntarget=" + target);
-                }
-                else this.exit();
+                } else this.exit();
             }
-        }
-        else {
-            if(player.equals(BATTING)) {
+        } else {
+            if (player.equals(BATTING)) {
                 arr[0] = arr[1];
                 arr[1] = play;
                 score += play;
-            }
-            else score+= comp;
+            } else score += comp;
         }
-        if(score>target && innings==2) this.exit();
+        if (score > target && innings == 2) this.exit();
     }
 
     private void exit() throws Exception {
-        if(player.equals(BATTING)) {
-            if(score<target) System.out.println("You lost!");
-            else if( score>target) System.out.println("You won!");
+        if (player.equals(BATTING)) {
+            if (score < target) System.out.println("You lost!");
+            else if (score > target) System.out.println("You won!");
             else System.out.println("Its a tie!");
-        }
-        else {
-            if(score>target) System.out.println("You lost!");
-            else if(score<target) System.out.println("You won!");
+        } else {
+            if (score > target) System.out.println("You lost!");
+            else if (score < target) System.out.println("You won!");
             else System.out.println("Its a tie!");
         }
         throw new Exception();
